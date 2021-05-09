@@ -53,7 +53,7 @@ void addDetails(int rollNo, char *studentName, char *contact, char *gender, char
         }
         ptr->nextLink = add;
     }
-    //return;
+    return;
 }
 
 void updateDetails(int rollNo)
@@ -72,9 +72,8 @@ void updateDetails(int rollNo)
             gets(update->gender);
             printf("\nEnter the Blood Group: ");
             scanf("%c", &update->bloodGroup);
-            while ((getchar()) != '\n') //To avoid Input Buffer Misbehaviour
-                ;
-            //return;
+            getchar(); //To avoid Input Buffer Misbehaviour
+            return;
         }
         update = update->nextLink;
     }
@@ -94,7 +93,7 @@ void searchDetails(int rollNo)
             printf("Contact: %s\n", search->contact);
             printf("Gender: %s\n", search->gender);
             printf("Blood Group: %c\n", search->bloodGroup);
-            //return;
+            return;
         }
         search = search->nextLink;
     }
@@ -123,7 +122,7 @@ void deleteDetails(int rollNo)
                 free(delete);                          //link the previous node of the requested node(i.e node which you want to remove) and link it with the next node of the requested node
             }
             printf("\nRecord successfully deleted!\n");
-            //return;
+            return;
         }
         previous = delete;
         delete = delete->nextLink; //increment the delete pointer
@@ -152,7 +151,7 @@ void viewDetails()
             view = view->nextLink;
         }
     }
-    //return;
+    return;
 }
 
 int main()
@@ -160,25 +159,26 @@ int main()
     int choice = 0, rollNo;
     char studentName[NAME], contact[CONTACT], gender[GENDER], bloodGroup;
     head = NULL; //initially head is assigned 'NULL' value.
+
     printf("\n\t\t\t\t\tWELCOME TO STUDENT MANAGEMENT SYSTEM PROGRAM!\n");
+
     do
     {
         printf("\nPlease select a choice. Press '0' to exit!\n\n1)Add a new entry\n2)Update an entry\n3)Search an entry\n4)Delete an entry\n5)View the records\n\nChoice: ");
         scanf("%d", &choice);
-        while ((getchar()) != '\n') //To avoid Input Buffer Misbehaviour
-            ;
+        getchar(); //To avoid Input Buffer Misbehaviour
 
         switch (choice)
         {
         case 0: //to quit the program
             printf("\nQuitting the program....!\n");
             break;
+
         case 1: //to add the new entry
             printf("\nEnter student's details:\n");
             printf("\nEnter the roll number: ");
             scanf("%d", &rollNo);
-            while ((getchar()) != '\n') //To avoid Input Buffer Misbehaviour
-                ;
+            getchar(); //To avoid Input Buffer Misbehaviour
             printf("\nEnter the name: ");
             gets(studentName);
             printf("\nEnter the contact details: ");
@@ -187,39 +187,42 @@ int main()
             gets(gender);
             printf("\nEnter the Blood Group: ");
             scanf("%c", &bloodGroup);
-            while ((getchar()) != '\n') //To avoid Input Buffer Misbehaviour
-                ;
+            getchar(); //To avoid Input Buffer Misbehaviour
             addDetails(rollNo, studentName, contact, gender, bloodGroup);
             break;
+
         case 2: //to update an existing entry
             printf("\nEnter the roll no. to update the details!\n\nRoll No: ");
             scanf("%d", &rollNo);
-            while ((getchar()) != '\n') //To avoid Input Buffer Misbehaviour
-                ;
+            getchar(); //To avoid Input Buffer Misbehaviour
             updateDetails(rollNo);
             break;
+
         case 3: //to search an entry
             printf("\nEnter the roll no. to search the details!\n\nRoll No: ");
             scanf("%d", &rollNo);
-            while ((getchar()) != '\n') //To avoid Input Buffer Misbehaviour
-                ;
+            getchar(); //To avoid Input Buffer Misbehaviour
             searchDetails(rollNo);
             break;
+
         case 4: //to delete an existing entry
             printf("\nEnter the roll no. to delete the details!\n\nRoll No: ");
             scanf("%d", &rollNo);
-            while ((getchar()) != '\n') //To avoid Input Buffer Misbehaviour
-                ;
+            getchar(); //To avoid Input Buffer Misbehaviour
             deleteDetails(rollNo);
             break;
+
         case 5: //to view the existing entries in record
             viewDetails();
             break;
+
         default: //for invalid choices
             printf("\nPlease enter a valid choice!\n");
             break;
         }
     } while (choice);
+
+    free(head);
     system("pause");
     return 0;
 }
