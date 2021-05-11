@@ -73,23 +73,15 @@ void enqueue(struct QUEUE *ptr, int element)
 
 void dequeue(struct QUEUE *ptr)
 {
-    if (!isEmpty(ptr))
-    {
-        printf("\nItem: %d successfully deleted!", ptr->array[ptr->front]);
-        ptr->front++;
-    }
+    printf("\nItem: %d successfully deleted!", ptr->array[ptr->front]);
+    ptr->front++;
 }
 
 void display(struct QUEUE *ptr)
 {
-    if (!isEmpty(ptr))
-    {
-        printf("\nThe elements in the queue are: ");
-        for (int i = ptr->front; i <= ptr->rear; i++)
-        {
-            printf("%d ", ptr->array[i]);
-        }
-    }
+    printf("\nThe elements in the queue are: ");
+    for (int i = ptr->front; i <= ptr->rear; i++)
+        printf("%d ", ptr->array[i]);
 }
 int main()
 {
@@ -118,11 +110,17 @@ int main()
             break;
         case 2:
             //delete element
-            dequeue(queue);
+            if (!isEmpty(queue))
+            {
+                dequeue(queue);
+            }
             break;
         case 3:
             //display element
-            display(queue);
+            if (!isEmpty(queue))
+            {
+                display(queue);
+            }
             break;
 
         default:
