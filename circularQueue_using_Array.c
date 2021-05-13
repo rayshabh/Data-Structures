@@ -40,10 +40,7 @@ struct circularQueue *createQueue(int size)
 bool isEmpty(struct circularQueue *ptr)
 {
     if (ptr->front == -1 && ptr->rear == -1)
-    {
-        printf("\nQueue Underflow!");
         return true;
-    }
     else
         return false;
 }
@@ -51,46 +48,34 @@ bool isEmpty(struct circularQueue *ptr)
 bool isFull(struct circularQueue *ptr)
 {
     if ((ptr->rear + 1) % ptr->MAX_SIZE == ptr->front)
-    {
-        printf("\nQueue Overflow!");
         return true;
-    }
     else
         return false;
 }
 
 void enqueue(struct circularQueue *ptr, int element)
 {
-    if (ptr->front == -1 && ptr->rear == -1)
+    if (isEmpty(ptr))
     {
         ptr->front = ptr->rear = 0;
         ptr->array[ptr->rear] = element;
-        printf("\nElement: %d inserted successfully!", ptr->array[ptr->rear]);
-        printf("\nPosition of Front: %d and Rear: %d\n", ptr->front, ptr->rear);
     }
     else
     {
         ptr->rear = (ptr->rear + 1) % ptr->MAX_SIZE;
         ptr->array[ptr->rear] = element;
-        printf("\nElement: %d inserted successfully!", ptr->array[ptr->rear]);
-        printf("\nPosition of Front: %d and Rear: %d\n", ptr->front, ptr->rear);
     }
+    printf("\nElement: %d inserted successfully!", ptr->array[ptr->rear]);
 }
 
 void dequeue(struct circularQueue *ptr)
 {
+    printf("\nElement: %d deleted successfully!", ptr->array[ptr->front]);
+
     if (ptr->front == ptr->rear)
-    {
-        printf("\nElement: %d deleted successfully!", ptr->array[ptr->front]);
         ptr->front = ptr->rear = -1;
-        printf("\nPosition of Front: %d and Rear: %d\n", ptr->front, ptr->rear);
-    }
     else
-    {
-        printf("\nElement: %d deleted successfully!", ptr->array[ptr->front]);
         ptr->front = (ptr->front + 1) % ptr->MAX_SIZE;
-        printf("\nPosition of Front: %d and Rear: %d\n", ptr->front, ptr->rear);
-    }
 }
 
 void display(struct circularQueue *ptr)
@@ -118,32 +103,38 @@ int main()
         switch (choice)
         {
             int element;
+
         case 0:
             //to exit the program
             printf("Quitting the program....!");
             break;
+
         case 1:
             //insert element
-            if (!isFull(Queue))
+            if (isFull(Queue))
+                printf("\nQueue Overflow!");
+            else
             {
                 printf("\nEnter the element you want to insert: ");
                 scanf("%d", &element);
                 enqueue(Queue, element);
             }
             break;
+
         case 2:
             //delete element
-            if (!isEmpty(Queue))
-            {
+            if (isEmpty(Queue))
+                printf("\nQueue Underflow!");
+            else
                 dequeue(Queue);
-            }
             break;
+
         case 3:
             //display element
-            if (!isEmpty(Queue))
-            {
+            if (isEmpty(Queue))
+                printf("\nQueue Underflow!");
+            else
                 display(Queue);
-            }
             break;
 
         default:
