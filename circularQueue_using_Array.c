@@ -80,7 +80,7 @@ void dequeue(struct circularQueue *ptr)
 
 void display(struct circularQueue *ptr)
 {
-    printf("\nThe elements in the queue are: ");
+    printf("\nThe elements in the queue are: Front ----> ");
 
     int i = ptr->front;
     while (i != ptr->rear)
@@ -89,6 +89,7 @@ void display(struct circularQueue *ptr)
         i = (i + 1) % ptr->MAX_SIZE;
     }
     printf("%d", ptr->array[i]);
+    printf(" <---- Rear");
 }
 
 int main()
